@@ -1,4 +1,4 @@
-package main
+package linter
 
 func (v *Validator) validateRunScript(noShellcheck bool) ([]byte, error, string) {
 	if xExec, ok := v.data["x_exec"].(map[string]interface{}); ok {

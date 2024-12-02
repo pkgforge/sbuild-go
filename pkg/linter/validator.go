@@ -1,9 +1,10 @@
-package main
+package linter
 
 import (
 	"fmt"
 	"os"
 
+	"github.com/pkgforge/sbuilder-go/pkg/logger"
 	"gopkg.in/yaml.v3"
 )
 
@@ -18,19 +19,19 @@ type Validator struct {
 func NewValidator(filePath string) (*Validator, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
-		Log.Error("Failed to read file", "file", filePath, "error", err)
+		logger.Log.Error("Failed to read file", "file", filePath, "error", err)
 		return nil, fmt.Errorf("failed to read file: %w", err)
 	}
 
 	var node yaml.Node
 	if err := yaml.Unmarshal(data, &node); err != nil {
-		Log.Error("Failed to parse YAML", "error", err)
+		logger.Log.Error("Failed to parse YAML", "error", err)
 		return nil, fmt.Errorf("failed to parse YAML: %w", err)
 	}
 
 	var dataMap map[string]interface{}
 	if err := yaml.Unmarshal(data, &dataMap); err != nil {
-		Log.Error("Failed to unmarshal YAML to map", "error", err)
+		logger.Log.Error("Failed to unmarshal YAML to map", "error", err)
 		return nil, fmt.Errorf("failed to unmarshal YAML to map: %w", err)
 	}
 

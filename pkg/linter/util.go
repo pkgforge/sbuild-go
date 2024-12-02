@@ -1,10 +1,9 @@
-package main
+package linter
 
 import (
 	"fmt"
 	"os"
 	"os/exec"
-	//"path/filepath"
 )
 
 // validateScript handles the common validation logic for shell scripts
@@ -73,16 +72,4 @@ func removeDuplicates(data interface{}) interface{} {
 	default:
 		return data
 	}
-}
-
-func writeDataToNewFile(originalFile string, data []byte) error {
-	//newFile := filepath.Base(originalFile) + ".validated"
-	newFile := originalFile + ".validated"
-	err := os.WriteFile(newFile, data, 0644)
-	if err != nil {
-		Log.Error("Failed to write processed data to new file", "file", newFile, "error", err)
-		return err
-	}
-	Log.Info("Processed data written to new file", "file", newFile)
-	return nil
 }
